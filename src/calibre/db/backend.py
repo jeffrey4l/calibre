@@ -46,7 +46,7 @@ from calibre.utils.copy_files import (
 )
 from calibre.utils.date import EPOCH, parse_date, utcfromtimestamp, utcnow
 from calibre.utils.filenames import (
-    ascii_filename, atomic_rename, copyfile_using_links, copytree_using_links,
+    atomic_rename, copyfile_using_links, copytree_using_links,
     hardlink_file, is_case_sensitive, is_fat_filesystem, make_long_path_useable,
     remove_dir_if_empty, samefile, get_long_path_name
 )
@@ -65,6 +65,11 @@ from polyglot.builtins import (
 CUSTOM_DATA_TYPES = frozenset(('rating', 'text', 'comments', 'datetime',
     'int', 'float', 'bool', 'series', 'composite', 'enumeration'))
 WINDOWS_RESERVED_NAMES = frozenset('CON PRN AUX NUL COM1 COM2 COM3 COM4 COM5 COM6 COM7 COM8 COM9 LPT1 LPT2 LPT3 LPT4 LPT5 LPT6 LPT7 LPT8 LPT9'.split())
+
+
+def ascii_filename(filename):
+    import re
+    return re.sub(r"[\/\\\:\*\?\"\<\>\|]", "_", filename)
 
 
 class DynamicFilter:  # {{{
